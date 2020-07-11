@@ -1,0 +1,2 @@
+- node_modules/.bin/webpack main.js
+- 执行 webpack 打包
