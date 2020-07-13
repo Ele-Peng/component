@@ -1,107 +1,107 @@
-function createElement(Cls, attributes, ...children){
-    
-    let o;
+function createElement(Cls, attributes, ...children) {
 
-    if(typeof Cls === "string") {
-        o = new Wrapper(Cls);
-    } else {
-        o = new Cls({
-            timer: {}
-        });
-    }
+  let o;
+
+  if (typeof Cls === "string") {
+    o = new Wrapper(Cls);
+  } else {
+    o = new Cls({
+      timer: {}
+    });
+  }
 
 
 
-    for(let name in attributes) {
-        o.setAttribute(name, attributes[name]);
-    }
+  for (let name in attributes) {
+    o.setAttribute(name, attributes[name]);
+  }
 
-    //console.log(children);
-    console.log(o);
-    for(let child of children) {
-        if(typeof child === "string")
-            child = new Text(child);
+  //console.log(children);
+  console.log(o);
+  for (let child of children) {
+    if (typeof child === "string")
+      child = new Text(child);
 
-        o.appendChild(child);
-    }
+    o.appendChild(child);
+  }
 
-    return o;
+  return o;
 }
 
 class Text {
-    constructor(text){
-        this.children = [];
-        this.root = document.createTextNode(text);
-    }
-    mountTo(parent){
-        parent.appendChild(this.root);
-    }
+  constructor(text) {
+    this.children = [];
+    this.root = document.createTextNode(text);
+  }
+  mountTo(parent) {
+    parent.appendChild(this.root);
+  }
 }
 
-class Wrapper{
-    constructor(type){
-        this.children = [];
-        this.root = document.createElement(type);
+class Wrapper {
+  constructor(type) {
+    this.children = [];
+    this.root = document.createElement(type);
+  }
+
+  setAttribute(name, value) { //attribute
+    this.root.setAttribute(name, value);
+  }
+
+  appendChild(child) {
+    this.children.push(child);
+
+  }
+
+  mountTo(parent) {
+    parent.appendChild(this.root);
+
+    for (let child of this.children) {
+      child.mountTo(this.root);
     }
-
-    setAttribute(name, value) { //attribute
-        this.root.setAttribute(name, value);
-    }
-
-    appendChild(child){
-        this.children.push(child);
-
-    }
-
-    mountTo(parent){
-        parent.appendChild(this.root);
-
-        for(let child of this.children){
-            child.mountTo(this.root);
-        }
-    }
+  }
 
 }
 
 class MyComponent {
-    constructor(config){
-        this.children = [];
-        this.attributes = new Map();
-        this.properties = new Map();
-    }
+  constructor(config) {
+    this.children = [];
+    this.attributes = new Map();
+    this.properties = new Map();
+  }
 
-    setAttribute(name, value) { //attribute
-        // this.root.setAttribute(name, value);
-        this.attributes.set(name, value);
-    }
+  setAttribute(name, value) { //attribute
+    // this.root.setAttribute(name, value);
+    this.attributes.set(name, value);
+  }
 
-    appendChild(child){
-        this.children.push(child);
-    }
+  appendChild(child) {
+    this.children.push(child);
+  }
 
-    set title(value) {
-      this.properties.set("title", value)
-    }
+  set title(value) {
+    this.properties.set("title", value)
+  }
 
-    render(){
-        
-        return <article>
-            <h1>{this.attributes.get("title")}</h1>
-            <h1>{this.properties.get("title")}</h1>
-            <header>I'm a header</header>
-            {this.slot}
-            <footer>I'm a footer</footer>
-        </article>
-    }
+  render() {
 
-    mountTo(parent){
-        this.slot = <div></div>
-        for(let child of this.children){
-            this.slot.appendChild(child)
-        }
-        this.render().mountTo(parent)
+    return <article>
+      <h1>{this.attributes.get("title")}</h1>
+      <h1>{this.properties.get("title")}</h1>
+      <header>I'm a header</header>
+      {this.slot}
+      <footer>I'm a footer</footer>
+    </article>
+  }
 
+  mountTo(parent) {
+    this.slot = <div></div>
+    for (let child of this.children) {
+      this.slot.appendChild(child)
     }
+    this.render().mountTo(parent)
+
+  }
 
 
 }
@@ -115,9 +115,9 @@ class MyComponent {
     </div>*/
 
 let component = <MyComponent title="hhhh">
-    <div>text text text</div>
+  <div>text text text</div>
 </MyComponent>
-    
+
 component.title = "hehehe"
 
 component.mountTo(document.body);
