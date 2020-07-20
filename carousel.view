@@ -1,9 +1,8 @@
 <template>
-  
-</template>
-
-
-<script>
+  <div>
+    <img />
+  </div>
+</template><script>
 export default {
   el: '#example',
   data: {
