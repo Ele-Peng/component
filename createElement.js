@@ -1,22 +1,18 @@
-export function createElement(Com, attrs, ...childrens) {
+export function createElement(Cls, attributes, ...children) {
     let o;
-    if (typeof Com === 'string') {
-        o = new Wrapper(Com);
+
+    if (typeof Cls === "string") {
+        o = new Wrapper(Cls);
     } else {
-        o = new Com({
-            time: {}
+        o = new Cls({
+            timer: {}
         });
     }
-    for (let attr in attrs) {
-        o.setAttribute(attr, attrs[attr]);
+
+    for (let name in attributes) {
+        o.setAttribute(name, attributes[name]);
     }
 
-    // for (let children of childrens) {
-    //     if (typeof children === 'string') {
-    //         children = new Text(children); 
-    //     }
-    //     o.appendChild(children);
-    // }
     let visit = (childrens) => {
         for (let child of childrens) {
             if (typeof (child) === 'object' && child instanceof Array) {
@@ -30,70 +26,42 @@ export function createElement(Com, attrs, ...childrens) {
         }
     }
     visit(childrens);
+
     return o;
 }
-export class Wrapper {
-    constructor(type) {
-        this.children = [];
-        this.root = document.createElement(type);
-    }
-    setAttribute(name, v) {
-        this.root.setAttribute(name, v);
-    }
-    appendChild(child) {
-        this.children.push(child);
-    }
-    addEventListener() {
-        this.root.addEventListener(...arguments);
-    }
-    get style() {
-        return this.root.style;
-    }
-    mountTo(parent) {
-        parent.appendChild(this.root);
-        for (let child of this.children) {
-            child.mountTo(this.root);
-        }
-    }
-}
+
 export class Text {
     constructor(text) {
         this.children = [];
         this.root = document.createTextNode(text);
     }
+    
     mountTo(parent) {
         parent.appendChild(this.root);
     }
 }
-class MyCom {
-    constructor() { 
+
+export class Wrapper {
+    constructor(type) {
         this.children = [];
+        this.root = document.createElement(type);
     }
-    setAttribute(name, v) {
-        this.root.setAttribute(name, v);
+
+    setAttribute(name, value) { //attribute
+        this.root.setAttribute(name, value);
     }
+
     appendChild(child) {
         this.children.push(child);
+
     }
-    render() {
-        return <article>
-            <header>I'm a header</header>
-            {this.slot}
-            <footer>I'm a footer</footer>
-        </article>
-    }
+
     mountTo(parent) {
-        this.slot = <div></div> // 走wrapper
+        parent.appendChild(this.root);
+
         for (let child of this.children) {
-            this.slot.appendChild(child)
+            child.mountTo(this.root);
         }
-        this.render().mountTo(parent);
     }
 }
 
-let component = <MyCom>
-    <div>slot</div>
-</MyCom>
-
-component.mountTo(document.body);
-console.log(component);
