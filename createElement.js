@@ -1,6 +1,6 @@
-import { enableGesture } from './lib/gesture';
+import { enableGesture } from './gesture';
 
-export function create(Cls, attributes, ...children) {
+export function createElement(Cls, attributes, ...children) {
   let o;
 
   if (typeof Cls === "string") {
