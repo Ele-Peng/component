@@ -25,7 +25,7 @@ export function createElement(Cls, attributes, ...children) {
             o.appendChild(child);
         }
     }
-    visit(childrens);
+    visit(children);
 
     return o;
 }

@@ -11,6 +11,11 @@ export class Timeline {
                 let { object, property, start, end, timingFunction, duration, delay, template, startTime } = animation;
     
                 let progression = timingFunction((t - delay - startTime) / duration); // 百分比 0-1之间的数
+
+                if (t < delay + addTime) {
+                    continue;
+                }
+                
                 if (t > duration + delay + startTime) {
                     progression = 1;
                     animation.finished = true;
