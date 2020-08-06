@@ -3,3 +3,5 @@
 
 - node_modules/.bin/webpack-dev-server main.js
 - 执行 webpack-dev-server 热更新打包
+
+- 可以靠修改 webapck.config.js 来确定打包入口
