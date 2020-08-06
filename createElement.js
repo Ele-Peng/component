@@ -1,5 +1,3 @@
-import { enableGesture } from './gesture';
-
 export function createElement(Cls, attributes, ...children) {
   let o;
 
