@@ -27,8 +27,10 @@ export class TabPane {
       this.childViews[i].style.display = "";
 
 
-      this.titleViews.forEach(childView => childView.style.display = "none");
-      this.titleViews[i].style.display = "";
+      this.titleViews.forEach(childView => {
+        childView.classList.remove("selected");
+      });
+      this.titleViews[i].classList.add("selected");
 
       // this.titleView.innerText = this.attributes.get('title');
     }
@@ -36,10 +38,13 @@ export class TabPane {
     render() {
       setTimeout(() => this.select(0, 16));
       this.childViews = this.children.map(child => <div style="min-height: 300px;width: 300px;">{child}</div>);
-      this.titleViews = this.children.map(child => <h1 style="background-color: pink; width: 300px; color: #fff; margin: 0;">{child.getAttribute("title")}</h1>);;
+      this.titleViews = this.children.map((child, i) => <span 
+        onClick={() => this.select(i)} 
+        style="border-right: solid 2px #fff;padding: 0px 9px;"
+      >{child.getAttribute("title")}</span>);;
 
       let root = <div class="panel" style="border:solid 1px pink;width: 300px;">
-        {this.titleViews}
+        <h2 style="background-color: pink; color: #fff; margin: 0;">{this.titleViews}</h2>
         <div>
           {this.childViews}
         </div>
