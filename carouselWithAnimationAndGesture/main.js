@@ -1,5 +1,6 @@
 import {createElement, Text, Wrapper} from "./lib/createElement";
 import { Carousel }  from './Carousel';
+import { Panel }  from './Panel';
 
 let component = <Carousel data={[
   "https://static001.geekbang.org/resource/image/bb/21/bb38fb7c1073eaee1755f81131f11d21.jpg",
@@ -8,4 +9,7 @@ let component = <Carousel data={[
   "https://static001.geekbang.org/resource/image/73/e4/730ea9c393def7975deceb48b3eb6fe4.jpg",
 ]}></Carousel>
 
+let panel = <Panel></Panel>
+
 component.mountTo(document.body);
+panel.mountTo(document.body);

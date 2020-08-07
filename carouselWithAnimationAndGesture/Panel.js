@@ -2,7 +2,7 @@ import {createElement, Text, Wrapper} from "./lib/createElement";
 import {Timeline, Animation} from "./lib/animation";
 import {ease} from "./lib/cubicBezier";
 
-export class Carousel {
+export class Panel {
     constructor(config) {
       this.children = [];
       this.attributes = new Map();
@@ -208,7 +208,7 @@ export class Carousel {
     //     document.addEventListener("mouseup", up);
     //   })
   
-      let root = <div class="carousel">
+      let root = <div class={this.attributes.get('class')}>
         {children}
       </div>
   
