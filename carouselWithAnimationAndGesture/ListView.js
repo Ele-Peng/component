@@ -31,7 +31,7 @@ export class ListView {
 
       let root = <div class="list-view" style="width: 300px;">
         {
-          data.map(this.children[0])
+          data.map(this.children[0]) // this.children[0] 是一个函数
         }
       </div>
   

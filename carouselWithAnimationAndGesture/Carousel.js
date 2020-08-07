@@ -2,6 +2,8 @@ import {createElement, Text, Wrapper} from "./lib/createElement";
 import {Timeline, Animation} from "./lib/animation";
 import {ease} from "./lib/cubicBezier";
 
+import css from "./carousel.css";
+
 export class Carousel {
     constructor(config) {
       this.children = [];
